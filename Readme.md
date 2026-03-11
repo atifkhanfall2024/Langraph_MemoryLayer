@@ -63,3 +63,7 @@ LangGraph agents use multiple layers of memory to handle information, context, a
 **References:**
 - LangGraph Documentation: [https://www.langgraph.com/docs](https://www.langgraph.com/docs)
 - Memory in AI Agents: S. Franklin, “Artificial Minds” (2014)
+
+
+
+## configuration of MEM0
