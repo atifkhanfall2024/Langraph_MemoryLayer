@@ -5,23 +5,26 @@ import os
 
 load_dotenv()
 
-key = os.getenv("GOOGLE_API_KEY")
+key = os.getenv("GROQ_API_KEY")
 
 config = {
     "version": "v1.1",
     "embedder": {
-        "provider": "huggingface",
-        "config": {"api_key": key, "model": "gemini-embedding-001"}
+        "provider": "groq",
+        "config": {"api_key": key, "model": "mixtral-8x7b-32768"}
     },
     "llm": {
-        "provider": "google-genai",
-        "config": {"api_key": key, "model": "gemini-2.5-flash"}
+        "provider": "groq",
+        "config": {"api_key": key, "model": "mixtral-8x7b-32768"}
     },
     "vector_store": {
         "provider": "qdrant",
         "config": {"host": "localhost", "port": 6333}
     }
+
 }
+
+
 
 # Initialize memory
 memory = Memory.from_config(config)
