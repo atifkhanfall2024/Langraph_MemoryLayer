@@ -29,7 +29,8 @@ config = {
         "provider": "qdrant",
         "config": {
             "host": "localhost",
-            "port": 6333
+            "port": 6333,
+            "collection_name": "mem0"
         }
     }
 }
@@ -38,17 +39,40 @@ config = {
 memory = Memory.from_config(config)
 
 # Take user input
-user_query = input(":> ")
+while True:
+ user_query = input(":> ")
+
+ # also i need when user ask something then retireve this
+ search = memory.search(query=user_query , user_id="atif")
+
+ memories = [
+   f" user id : {mem.get('id')}\n Memory : {mem.get('memory')}"
+   for mem in search.get("results")
+ ]
+
+ print('memories ' , memories)
+
+ system_prompt = f"""
+You are an AI assistant.
+
+Use the following user memories to answer the question:
+
+{memories}
+
+If the answer exists in memory, MUST use it.
+If not, say you don't know.
+"""
 
 # Generate response using the Groq LLM inside Mem0
-ai_response = memory.llm.generate_response([
+ ai_response = memory.llm.generate_response([
+    {"role": "system", "content": system_prompt},
     {"role": "user", "content": user_query}
 ])
 
-print("AI Response:", ai_response)
+ print("AI Response:", ai_response)
 
 # Store conversation in memory
-memory.add(
+ memory.add(
     user_id="atif",
     messages=[
         {"role": "user", "content": user_query},
@@ -56,4 +80,4 @@ memory.add(
     ]
 )
 
-print("Data stored into DB")
+ print("Data stored into DB")
