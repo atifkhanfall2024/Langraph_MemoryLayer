@@ -25,6 +25,15 @@ config = {
         "max_tokens": 1000
         }
     },
+  "graph_store": {
+    "provider": "neo4j",
+    "config": {
+        "url": "neo4j://8f00d32f.databases.neo4j.io",
+        "username": "neo4j",
+        "password": "SOpvFH8dm-QqHltMFIQpoApy2icz4lFM8l0SDuzYj04"
+      
+    }
+},
     "vector_store": {
         "provider": "qdrant",
         "config": {
